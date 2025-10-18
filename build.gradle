@@ -15,14 +15,17 @@ java {
 	}
 }
 
-// Forzar el uso del JAVA_HOME correcto para Gradle
-tasks.withType(JavaCompile) {
-    options.fork = true
-    options.forkOptions.executable = 'C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.8.9-hotspot\\bin\\javac.exe'
-}
+// Forzar el uso del JAVA_HOME correcto para Gradle solo en Windows local
+// En Docker/Linux, usará el toolchain configurado automáticamente
+if (System.getProperty('os.name').toLowerCase().contains('windows')) {
+    tasks.withType(JavaCompile) {
+        options.fork = true
+        options.forkOptions.executable = 'C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.8.9-hotspot\\bin\\javac.exe'
+    }
 
-tasks.withType(Test) {
-    executable = 'C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.8.9-hotspot\\bin\\java.exe'
+    tasks.withType(Test) {
+        executable = 'C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.8.9-hotspot\\bin\\java.exe'
+    }
 }
 
 repositories {
