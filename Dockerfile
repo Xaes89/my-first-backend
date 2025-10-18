@@ -12,8 +12,10 @@ COPY build.gradle settings.gradle gradlew /app/
 COPY gradle /app/gradle
 COPY src /app/src
 
-# "Ahora, pulsemos el botón de 'construir'. Ejecutemos el comando de Gradle
-# para crear nuestro archivo .jar final."
+# ¡LA SOLUCIÓN! Damos permiso de ejecución al wrapper de Gradle.
+RUN chmod +x gradlew
+
+# Ahora sí, el comando de construcción funcionará
 RUN ./gradlew bootJar --no-daemon
 
 # --------------------- ETAPA 2: EL COCHE 🚗 ---------------------
