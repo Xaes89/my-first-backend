@@ -35,3 +35,8 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# Ignorar la configuración local de Gradle
+gradle.properties
+# Ignorar carpetas comunes de IDE
+.idea/
