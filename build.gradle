@@ -15,16 +15,20 @@ java {
 	}
 }
 
-// Forzar el uso del JAVA_HOME correcto para Gradle solo en Windows local
-// En Docker/Linux, usará el toolchain configurado automáticamente
+// Configuración automática de Java para diferentes sistemas operativos
+// Busca automáticamente la instalación de Java sin rutas hardcodeadas
 if (System.getProperty('os.name').toLowerCase().contains('windows')) {
-    tasks.withType(JavaCompile) {
-        options.fork = true
-        options.forkOptions.executable = 'C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.8.9-hotspot\\bin\\javac.exe'
-    }
-
-    tasks.withType(Test) {
-        executable = 'C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.8.9-hotspot\\bin\\java.exe'
+    // En Windows, intenta usar JAVA_HOME si está configurado
+    def javaHome = System.getenv('JAVA_HOME')
+    if (javaHome) {
+        tasks.withType(JavaCompile) {
+            options.fork = true
+            options.forkOptions.executable = "${javaHome}/bin/javac.exe"
+        }
+        
+        tasks.withType(Test) {
+            executable = "${javaHome}/bin/java.exe"
+        }
     }
 }
 

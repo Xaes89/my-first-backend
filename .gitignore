@@ -36,7 +36,28 @@ out/
 ### VS Code ###
 .vscode/
 
-# Ignorar la configuración local de Gradle
-gradle.properties
-# Ignorar carpetas comunes de IDE
-.idea/
+### Environment Variables ###
+.env
+.env.local
+.env.production
+
+### Logs ###
+logs/
+*.log
+
+### OS ###
+.DS_Store
+Thumbs.db
+
+### Docker ###
+.dockerignore
+
+### Database ###
+*.db
+*.sqlite
+*.sqlite3
+
+### Temporary files ###
+*.tmp
+*.temp
+*~
